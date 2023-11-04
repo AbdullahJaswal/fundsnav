@@ -1,0 +1,10 @@
+FROM redis:7.0
+
+# Set the working directory to /data
+WORKDIR /data
+
+# Expose the Redis default port
+EXPOSE 6379
+
+# Run Redis with the appendonly mode enabled
+CMD ["redis-server", "--appendonly", "yes"]

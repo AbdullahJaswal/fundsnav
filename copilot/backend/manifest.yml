@@ -1,0 +1,50 @@
+# The manifest for the "backend" service.
+# Read the full specification for the "Load Balanced Web Service" type at:
+#  https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/
+
+# Your service name will be used in naming your resources like log groups, ECS services, etc.
+name: backend
+type: Load Balanced Web Service
+
+exec: false # Enable running commands in your container.
+network:
+  connect: true # Enable Service Connect for intra-environment traffic between services.
+
+# storage:
+# readonly_fs: true       # Limit to read-only access to mounted root filesystems.
+
+# Optional fields for more advanced use-cases.
+#
+variables: # Pass environment variables as key value pairs.
+  LOG_LEVEL: "debug"
+  PIP_ROOT_USER_ACTION: ignore
+  DEBUG: "False"
+  DJANGO_SETTINGS_MODULE: "core.settings"
+
+secrets: # Pass secrets from AWS Systems Manager (SSM) Parameter Store.
+  SECRET_KEY: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/SECRET_KEY
+  DB_ENGINE: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/DB_ENGINE
+  DB_HOST: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/DB_HOST
+  DB_PORT: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/DB_PORT
+  DB_USER: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/DB_USER
+  DB_PASS: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/DB_PASS
+  DB_NAME: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/DB_NAME
+  REDIS_URL: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/REDIS_URL
+
+# You can override any of the values defined above by environment.
+environments:
+  prod:
+    cpu: 256
+    memory: 512
+    count: 1
+    image:
+      build: backend/Dockerfile.prod
+      port: 8000
+    variables:
+      SITE_ID: "1"
+    http:
+      path: "backend-api"
+      healthcheck:
+        path: "/backend-api/"
+        grace_period: 300s
+      alias: "fundsnav.com"
