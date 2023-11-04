@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://fundsnav.com
+
+# Sitemaps
+Sitemap: https://fundsnav.com/sitemap.xml
+Sitemap: https://fundsnav.com/server-sitemap.xml

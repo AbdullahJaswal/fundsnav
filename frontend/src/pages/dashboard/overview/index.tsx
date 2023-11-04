@@ -1,6 +1,6 @@
 import NewsCard from "@/components/cards/newsCard";
 import news from "@/components/cards/newsSampleData";
-import { boxplot_data } from "@/components/charts/boxplot/boxPlotChartSampleData";
+// import { boxplot_data } from "@/components/charts/boxplot/boxPlotChartSampleData";
 import ChartCard from "@/components/charts/chartCard";
 import { linechart_data } from "@/components/charts/line/lineChartSampleData";
 import DashboardHeader from "@/components/headers/dashboardHeader";
@@ -13,10 +13,10 @@ const LineChart = dynamic(() => import("@/components/charts/line/lineChart"), {
   ssr: false,
   loading: () => <SpinnerLoader />,
 });
-const BoxPlotChart = dynamic(() => import("@/components/charts/boxplot/boxPlot"), {
-  ssr: false,
-  loading: () => <SpinnerLoader />,
-});
+// const BoxPlotChart = dynamic(() => import("@/components/charts/boxplot/boxPlot"), {
+//   ssr: false,
+//   loading: () => <SpinnerLoader />,
+// });
 
 export default function Overview() {
   const { setSelectedNews } = useNewsModalStore();
@@ -46,14 +46,14 @@ export default function Overview() {
           isDataLoaded={true}
         />
 
-        <ChartCard
+        {/* <ChartCard
           title="Top Performing Categories"
           color="primary-gradient"
           subtitle="last updated 4h ago"
           Chart={BoxPlotChart}
           data={boxplot_data}
           isDataLoaded={true}
-        />
+        /> */}
 
         <NewsCard news={news} setSelectedNews={setSelectedNews} />
       </div>
