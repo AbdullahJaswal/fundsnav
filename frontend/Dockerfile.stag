@@ -1,0 +1,22 @@
+# syntax=docker/dockerfile:1
+FROM node:18-buster-slim
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+WORKDIR /frontend
+COPY package.json /frontend/
+
+RUN apt-get update \
+    && apt-get install -y build-essential ca-certificates --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN npm install --loglevel verbose
+
+COPY . /frontend/
+
+RUN npm run build
+
+EXPOSE 3000
+
+RUN ["chmod", "+x", "/frontend/entrypoint.stag.sh"]
+ENTRYPOINT ["/frontend/entrypoint.stag.sh"]
