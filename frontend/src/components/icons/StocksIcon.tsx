@@ -1,12 +1,8 @@
-import * as React from "react"
-import { SVGProps } from "react"
+import * as React from "react";
+import { SVGProps } from "react";
 
 const StocksIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 375 375"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 375" {...props}>
     <defs>
       <clipPath id="a">
         <path d="M1.238 1.238h372.75v372.75H1.238Zm0 0" />
@@ -19,6 +15,6 @@ const StocksIcon = (props: SVGProps<SVGSVGElement>) => (
       />
     </g>
   </svg>
-)
+);
 
 export default StocksIcon;

@@ -3,7 +3,7 @@ import NewsType from "@/common/types/news/newsType";
 type Props = {
   news: NewsType[];
   setSelectedNews: (news: NewsType) => void;
-}
+};
 
 export default function NewsCard({ news, setSelectedNews }: Props) {
   return (
@@ -20,20 +20,16 @@ export default function NewsCard({ news, setSelectedNews }: Props) {
               <div key={index} tabIndex={index} className="collapse collapse-plus design-temp-2">
                 <input type="checkbox" className="peer" />
 
-                <div className="collapse-title font-bold flex items-center">
-                  {item.title}
-                </div>
+                <div className="collapse-title font-bold flex items-center">{item.title}</div>
 
                 <div className="collapse-content text-muted flex flex-col gap-2">
-                  <p>
-                    {item.description}
-                  </p>
+                  <p>{item.description}</p>
 
                   <div className="flex justify-end">
                     <span
                       className="text-end link-primary hover:link hover:cursor-pointer"
                       onClick={() => {
-                        const dialog: any = document.getElementById('news_modal');
+                        const dialog: any = document.getElementById("news_modal");
 
                         if (dialog) {
                           setSelectedNews(item);

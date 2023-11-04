@@ -5,5 +5,5 @@ export default function StandardFooter() {
         <p>Copyright © {new Date().getFullYear()} - All right reserved by FundsNav Ltd</p>
       </aside>
     </footer>
-  )
+  );
 }

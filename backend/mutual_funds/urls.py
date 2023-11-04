@@ -8,8 +8,8 @@ from .views import (
     FundDetailView,
     FundListView,
     FundMarketCapListView,
-    FundNAVListView,
     FundNAVChartView,
+    FundNAVListView,
     FundTypeDetailView,
     FundTypeListView,
 )

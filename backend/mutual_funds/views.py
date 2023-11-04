@@ -7,8 +7,8 @@ from rest_framework import filters, generics, permissions
 from .models import NAV, AssetManagementCompany, Category, Fund, FundType, MarketCap
 from .paginations import DefaultPagination
 from .serializers import (
-    AssetManagementCompanyListSerializer,
     AssetManagementCompanyDetailSerializer,
+    AssetManagementCompanyListSerializer,
     CategorySerializer,
     FundSerializer,
     FundTypeSerializer,

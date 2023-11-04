@@ -4,126 +4,126 @@
 
 /* Hero Background Opacity */
 [data-theme="light"] .hero-bg-blob {
-    opacity: 0.6; /* adjust this value to change the opacity of the image */
+  opacity: 0.6; /* adjust this value to change the opacity of the image */
 }
 
 [data-theme="dark"] .hero-bg-blob {
-    opacity: 0.6; /* adjust this value to change the opacity of the image */
+  opacity: 0.6; /* adjust this value to change the opacity of the image */
 }
 
 /* NavBar Background Blur */
 .navbar-bg-blur {
-    @apply backdrop-blur-sm;
+  @apply backdrop-blur-sm;
 }
 
 /* Text Muted */
 [data-theme="light"] .text-muted {
-    @apply text-slate-400;
+  @apply text-slate-400;
 }
 
 [data-theme="dark"] .text-muted {
-    @apply text-slate-500;
+  @apply text-slate-500;
 }
 
 /* Text Muted Light */
 [data-theme="light"] .text-muted-light {
-    @apply text-slate-300;
+  @apply text-slate-300;
 }
 
 [data-theme="dark"] .text-muted-light {
-    @apply text-slate-600;
+  @apply text-slate-600;
 }
 
 /* Background Glow Primary */
 [data-theme="light"] .background-glow-primary {
-    @apply drop-shadow-[0_20px_50px_rgba(102,204,138,0.25)];
+  @apply drop-shadow-[0_20px_50px_rgba(102,204,138,0.25)];
 }
 
 [data-theme="dark"] .background-glow-primary {
-    @apply drop-shadow-[0_20px_50px_rgba(102,204,138,0.5)];
+  @apply drop-shadow-[0_20px_50px_rgba(102,204,138,0.5)];
 }
 
 [data-theme="light"] .background-glow-low-primary {
-    @apply drop-shadow-[0_20px_80px_rgba(102,204,138,0.2)];
+  @apply drop-shadow-[0_20px_80px_rgba(102,204,138,0.2)];
 }
 
 [data-theme="dark"] .background-glow-low-primary {
-    @apply drop-shadow-[0_20px_80px_rgba(102,204,138,0.25)];
+  @apply drop-shadow-[0_20px_80px_rgba(102,204,138,0.25)];
 }
 
 /* Background Glow Secondary */
 [data-theme="light"] .background-glow-secondary {
-    @apply drop-shadow-[0_20px_50px_rgba(237,216,95,0.25)];
+  @apply drop-shadow-[0_20px_50px_rgba(237,216,95,0.25)];
 }
 
 [data-theme="dark"] .background-glow-secondary {
-    @apply drop-shadow-[0_20px_50px_rgba(237,216,95,0.5)];
+  @apply drop-shadow-[0_20px_50px_rgba(237,216,95,0.5)];
 }
 
 /* Background Glow Accent */
 [data-theme="light"] .background-glow-accent {
-    @apply drop-shadow-[0_20px_50px_rgba(234,82,52,0.25)];
+  @apply drop-shadow-[0_20px_50px_rgba(234,82,52,0.25)];
 }
 
 [data-theme="dark"] .background-glow-accent {
-    @apply drop-shadow-[0_20px_50px_rgba(234,82,52,0.5)];
+  @apply drop-shadow-[0_20px_50px_rgba(234,82,52,0.5)];
 }
 
 /* Cards */
 .standard-card {
-    @apply bg-base-200/25 border border-base-300 rounded-xl;
+  @apply bg-base-200/25 border border-base-300 rounded-xl;
 }
 
 /* Primary Button Hover */
 .btn-primary-hover {
-    @apply hover:bg-primary/20;
+  @apply hover:bg-primary/20;
 }
 
 /* Nav Button */
 .nav-btn {
-    @apply btn btn-ghost btn-sm text-xs;
+  @apply btn btn-ghost btn-sm text-xs;
 }
 
 /* Sidebar Icons */
 .sidebar-item-icon {
-    @apply w-6 h-6;
+  @apply w-6 h-6;
 }
 
 .sidebar-subitem-icon {
-    @apply w-5 h-5;
+  @apply w-5 h-5;
 }
 
 /* Collapse + Icon */
 .collapse-plus > .collapse-title:after {
-    @apply top-4 text-primary text-lg;
+  @apply top-4 text-primary text-lg;
 }
 
 /* Design Templates */
 .design-temp-1 {
-    @apply border bg-base-200/25 border-base-300;
+  @apply border bg-base-200/25 border-base-300;
 }
 
 .design-temp-2 {
-    @apply bg-base-200/30 border border-primary/20;
+  @apply bg-base-200/30 border border-primary/20;
 }
 
 .design-temp-primary {
-    @apply bg-primary/90 text-primary-content;
+  @apply bg-primary/90 text-primary-content;
 }
 
 .design-temp-secondary {
-    @apply bg-secondary/90 text-secondary-content;
+  @apply bg-secondary/90 text-secondary-content;
 }
 
 .design-temp-accent {
-    @apply bg-accent/90 text-accent-content;
+  @apply bg-accent/90 text-accent-content;
 }
 
 /* Text Gradient */
 [data-theme="light"] .text-gradient-primary {
-    @apply text-transparent bg-gradient-to-br from-primary to-secondary bg-clip-text drop-shadow-sm shadow-slate-400;
+  @apply text-transparent bg-gradient-to-br from-primary to-secondary bg-clip-text drop-shadow-sm shadow-slate-400;
 }
 
 [data-theme="dark"] .text-gradient-primary {
-    @apply text-transparent bg-gradient-to-br from-primary to-secondary bg-clip-text;
+  @apply text-transparent bg-gradient-to-br from-primary to-secondary bg-clip-text;
 }

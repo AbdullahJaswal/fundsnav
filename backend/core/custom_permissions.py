@@ -1,5 +1,6 @@
-from core.roles import ROLES
 from rest_framework import permissions
+
+from core.roles import ROLES
 
 
 class IsAdminOrStaff(permissions.BasePermission):

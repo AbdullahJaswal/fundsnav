@@ -16,7 +16,6 @@ from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-
 User = get_user_model()
 
 
@@ -62,7 +61,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     phone_number = PhoneNumberField()
 
     def get_cleaned_data(self):
-        super(CustomRegisterSerializer, self).get_cleaned_data()
+        super().get_cleaned_data()
 
         return {
             "first_name": self.validated_data.get("first_name", ""),

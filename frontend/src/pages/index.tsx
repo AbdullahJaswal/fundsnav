@@ -6,7 +6,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 
 type Props = {
   session: Session | null;
-}
+};
 
 export default function Home(props: Props) {
   return (
@@ -15,14 +15,11 @@ export default function Home(props: Props) {
 
       <Section1 />
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  context.res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate=59");
 
   const session: Session | null = await getServerSession(context.req, context.res, authOptions);
 
@@ -30,5 +27,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       session: session,
     },
-  }
+  };
 }

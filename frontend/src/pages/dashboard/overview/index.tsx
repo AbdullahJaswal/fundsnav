@@ -11,13 +11,12 @@ import { useNewsModalStore } from "@/lib/store";
 import dynamic from "next/dynamic";
 const LineChart = dynamic(() => import("@/components/charts/line/lineChart"), {
   ssr: false,
-  loading: () => <SpinnerLoader />
+  loading: () => <SpinnerLoader />,
 });
 const BoxPlotChart = dynamic(() => import("@/components/charts/boxplot/boxPlot"), {
   ssr: false,
-  loading: () => <SpinnerLoader />
+  loading: () => <SpinnerLoader />,
 });
-
 
 export default function Overview() {
   const { setSelectedNews } = useNewsModalStore();
@@ -59,5 +58,5 @@ export default function Overview() {
         <NewsCard news={news} setSelectedNews={setSelectedNews} />
       </div>
     </>
-  )
+  );
 }

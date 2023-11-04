@@ -1,12 +1,8 @@
-import * as React from "react"
-import { SVGProps } from "react"
+import * as React from "react";
+import { SVGProps } from "react";
 
 const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 375 375"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 375" {...props}>
     <defs>
       <clipPath id="a">
         <path d="M341 131h12v238.578h-12Zm0 0" />
@@ -68,6 +64,6 @@ const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
       <path d="m320.914 5.078 37.344 37.277V5.078Zm0 0" />
     </g>
   </svg>
-)
+);
 
 export default LogoIcon;

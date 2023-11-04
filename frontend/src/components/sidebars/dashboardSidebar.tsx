@@ -29,8 +29,11 @@ export default function DashboardSidebar() {
         if (item.href) {
           return (
             <li key={index}>
-              <Link href={item.href as string}
-                className={`${item_selected && "bg-primary text-primary-content"} py-5 font-bold hover:text-primary hover:bg-primary/10`}
+              <Link
+                href={item.href as string}
+                className={`${
+                  item_selected && "bg-primary text-primary-content"
+                } py-5 font-bold hover:text-primary hover:bg-primary/10`}
               >
                 <ItemIcon className={`sidebar-item-icon ${!item_selected && "text-primary"}`} /> {item.name}
               </Link>
@@ -65,12 +68,15 @@ export default function DashboardSidebar() {
                     <li key={subIndex} tabIndex={subIndex}>
                       <Link
                         href={subItem.href as string}
-                        className={`${sub_item_selected && "bg-primary !text-primary-content"} font-bold text-base-content hover:!text-primary hover:bg-primary/10`}
+                        className={`${
+                          sub_item_selected && "bg-primary !text-primary-content"
+                        } font-bold text-base-content hover:!text-primary hover:bg-primary/10`}
                       >
-                        <SubItemIcon className={`sidebar-subitem-icon ${!sub_item_selected && "text-primary"}`} /> {subItem.name}
+                        <SubItemIcon className={`sidebar-subitem-icon ${!sub_item_selected && "text-primary"}`} />{" "}
+                        {subItem.name}
                       </Link>
                     </li>
-                  )
+                  );
                 })}
               </div>
             </div>

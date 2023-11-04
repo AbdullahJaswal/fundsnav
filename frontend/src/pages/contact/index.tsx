@@ -1,7 +1,3 @@
 export default function Contact() {
-  return (
-    <>
-      Contact Us Page - Pending
-    </>
-  );
+  return <>Contact Us Page - Pending</>;
 }

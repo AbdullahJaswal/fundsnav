@@ -27,7 +27,7 @@ type Props = {
     name: string;
     href: string;
   }[];
-}
+};
 
 export default function DashboardBreadCrumbs(props: Props) {
   const pathname = usePathname();

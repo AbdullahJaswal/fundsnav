@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SiGoogleanalytics } from "react-icons/si"
+import { SiGoogleanalytics } from "react-icons/si";
 import { useState } from "react";
-import HeroGraphic from "../../../../public/hero-graphic-colored.svg"
-import HeroBackground from "../../../../public/hero-background.svg"
+import HeroGraphic from "../../../../public/hero-graphic-colored.svg";
+import HeroBackground from "../../../../public/hero-background.svg";
 import { Session } from "next-auth";
 
 type Props = {
   session: Session | null;
-}
+};
 
 export default function Hero(props: Props) {
   const [buttonPressed, setButtonPressed] = useState<boolean>(false);
@@ -22,9 +22,9 @@ export default function Hero(props: Props) {
         priority={true}
         fill={true}
         sizes="80vw"
-        className='hero-bg-blob'
+        className="hero-bg-blob"
         style={{
-          objectFit: 'cover',
+          objectFit: "cover",
           zIndex: -10,
         }}
       />
@@ -36,7 +36,8 @@ export default function Hero(props: Props) {
           </span>
 
           <h3 className="text-base sm:text-lg md:text-xl text-center lg:text-start">
-            Peek into <span className="text-gradient-primary font-bold">Pakistan&apos;s</span> mutual fund scene without the jargon.
+            Peek into <span className="text-gradient-primary font-bold">Pakistan&apos;s</span> mutual fund scene without
+            the jargon.
           </h3>
 
           <Link
@@ -44,11 +45,7 @@ export default function Hero(props: Props) {
             className="btn btn-outline btn-secondary font-bold w-52 mx-auto hover:scale-105 background-glow-secondary"
             onClick={() => setButtonPressed(true)}
           >
-            {
-              !buttonPressed ?
-                <SiGoogleanalytics /> :
-                <span className="loading loading-spinner"></span>
-            } Start Analyzing
+            {!buttonPressed ? <SiGoogleanalytics /> : <span className="loading loading-spinner"></span>} Start Analyzing
           </Link>
         </div>
 

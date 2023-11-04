@@ -125,7 +125,7 @@ const SideBarItems: SidebarItemType[] = [
     name: "About",
     icon: TbInfoCircle,
     href: "/about",
-  }
+  },
 ];
 
 export default SideBarItems;

@@ -1,17 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TbLogin2 } from "react-icons/tb"
-import { CgMenu } from "react-icons/cg"
+import { TbLogin2 } from "react-icons/tb";
+import { CgMenu } from "react-icons/cg";
 import ThemeButton from "@/components/misc/themeButton";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import NavbarButtons from "@/components/misc/navbarButtons";
 import SignOutButton from "@/components/misc/signoutButton";
 
-const menuItems: { path: string; label: string; }[] = [
+const menuItems: { path: string; label: string }[] = [
   { path: "/dashboard/overview", label: "Dashboard" },
   { path: "/about", label: "About Us" },
-  { path: "/contact", label: "Contact" }
+  { path: "/contact", label: "Contact" },
 ];
 
 export default function StandardNavbar() {
@@ -25,45 +25,47 @@ export default function StandardNavbar() {
         <div className="flex-1">
           <div className="dropdown">
             {isAuthenticated && pathname.startsWith("/dashboard") ? (
-              <label htmlFor="dashboard-drawer" className="btn btn-ghost hover:bg-primary/10 btn-circle text-primary border-0 drawer-button">
+              <label
+                htmlFor="dashboard-drawer"
+                className="btn btn-ghost hover:bg-primary/10 btn-circle text-primary border-0 drawer-button"
+              >
                 <CgMenu className="w-5 h-5" />
               </label>
             ) : (
               <>
                 <label tabIndex={0} className="btn btn-ghost hover:bg-primary/10 btn-circle text-primary lg:hidden">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                  </svg>
                 </label>
-                <ul tabIndex={0} className="menu menu-md dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-52 border border-base-300">
-                  <NavbarButtons
-                    menuItems={menuItems}
-                    pathname={pathname}
-                    isAuthenticated={isAuthenticated}
-                  />
+                <ul
+                  tabIndex={0}
+                  className="menu menu-md dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-52 border border-base-300"
+                >
+                  <NavbarButtons menuItems={menuItems} pathname={pathname} isAuthenticated={isAuthenticated} />
                 </ul>
               </>
             )}
           </div>
 
-          <Link href="/" className="btn btn-ghost hover:scale-105 hover:bg-primary/10 normal-case font-extrabold text-lg">
-            <Image
-              src={"/logo.webp"}
-              alt="FundsNav Logo"
-              width={24}
-              height={24}
-              quality={40}
-              priority={true}
-            />
+          <Link
+            href="/"
+            className="btn btn-ghost hover:scale-105 hover:bg-primary/10 normal-case font-extrabold text-lg"
+          >
+            <Image src={"/logo.webp"} alt="FundsNav Logo" width={24} height={24} quality={40} priority={true} />
             FundsNav
           </Link>
         </div>
 
         <div className="mr-4 hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <NavbarButtons
-              menuItems={menuItems}
-              pathname={pathname}
-              isAuthenticated={isAuthenticated}
-            />
+            <NavbarButtons menuItems={menuItems} pathname={pathname} isAuthenticated={isAuthenticated} />
           </ul>
 
           <div className="divider divider-horizontal h-8 my-auto m-0" />

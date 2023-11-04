@@ -1,7 +1,3 @@
 export default function About() {
-  return (
-    <>
-      About Page - Pending
-    </>
-  );
+  return <>About Page - Pending</>;
 }

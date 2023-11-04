@@ -63,9 +63,7 @@ export default function App({ Component, session, pageProps }: AppPropsWithLayou
 
   return (
     <section className={font.className}>
-      <SessionProvider session={session}>
-        {renderWithLayout(<Component {...pageProps} />)}
-      </SessionProvider>
+      <SessionProvider session={session}>{renderWithLayout(<Component {...pageProps} />)}</SessionProvider>
     </section>
   );
 }

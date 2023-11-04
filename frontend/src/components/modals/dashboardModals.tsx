@@ -8,5 +8,5 @@ export default function DashboardModals() {
     <>
       <NewsModal news={selectedNews} setSelectedNews={setSelectedNews} />
     </>
-  )
+  );
 }

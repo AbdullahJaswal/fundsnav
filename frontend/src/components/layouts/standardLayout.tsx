@@ -15,9 +15,7 @@ export default function StandardLayout({ children }: Props) {
       <StandardNavbar />
 
       <main className="max-w-7xl mx-auto flex flex-col gap-4 mb-auto w-full overflow-y-auto p-4">
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
+        <ErrorBoundary>{children}</ErrorBoundary>
       </main>
 
       <StandardFooter />

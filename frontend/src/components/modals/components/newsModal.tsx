@@ -9,12 +9,14 @@ const newsFont = NewsFont({
 type Props = {
   news: NewsType | null;
   setSelectedNews: (news: NewsType | null) => void;
-}
+};
 
 export default function NewsModal({ news, setSelectedNews }: Props) {
   return (
     <dialog id="news_modal" className="modal px-2 md:px-4 modal-bottom">
-      <div className={`${newsFont.className} modal-box flex flex-col gap-2 bg-base-100 background-glow-low-primary border-t border-x border-base-300`}>
+      <div
+        className={`${newsFont.className} modal-box flex flex-col gap-2 bg-base-100 background-glow-low-primary border-t border-x border-base-300`}
+      >
         <h3 className="font-extrabold text-xl lg:text-2xl text-primary text-center">{news?.title}</h3>
         <p className="text-muted text-sm text-justify">{news?.description}</p>
 
@@ -22,11 +24,7 @@ export default function NewsModal({ news, setSelectedNews }: Props) {
 
         <ul className="list-disc list-outside px-2 md:px-4 text-base-content text-justify font-bold flex flex-col gap-3">
           {news?.points.map((point, index) => {
-            return (
-              <li key={index}>
-                {point.text}
-              </li>
-            );
+            return <li key={index}>{point.text}</li>;
           })}
         </ul>
       </div>

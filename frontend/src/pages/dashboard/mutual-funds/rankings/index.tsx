@@ -10,5 +10,5 @@ export default function FundRankings() {
         showLinks={false}
       />
     </>
-  )
+  );
 }

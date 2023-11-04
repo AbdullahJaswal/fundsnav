@@ -29,7 +29,7 @@ const PROVIDER_ASSETS: any = {
 };
 
 export default function Login({ providers }: Props) {
-  const router = useRouter()
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const [respData, setRespData] = useState<any>(null);
@@ -41,23 +41,12 @@ export default function Login({ providers }: Props) {
     <div className="hero min-h-[80vh]">
       <div className="hero-content flex-col lg:flex-row justify-evenly gap-10 lg:gap-40 w-full">
         <figure className="mx-auto max-w-fit background-glow-primary">
-          <Image
-            src={"/logo.webp"}
-            alt="FundsNav Logo"
-            width={400}
-            height={400}
-            quality={50}
-            priority={true}
-          />
-          <h1 className="text-7xl text-primary font-bold text-center mt-6">
-            FundsNav
-          </h1>
+          <Image src={"/logo.webp"} alt="FundsNav Logo" width={400} height={400} quality={50} priority={true} />
+          <h1 className="text-7xl text-primary font-bold text-center mt-6">FundsNav</h1>
         </figure>
 
         <div className="card flex-shrink-0 w-full max-w-sm mx-auto border border-base-300">
-          <div className="card-title text-center text-primary mx-auto mt-4">
-            Login
-          </div>
+          <div className="card-title text-center text-primary mx-auto mt-4">Login</div>
 
           <div className="card-body">
             <div className="flex flex-col gap-4">
@@ -94,7 +83,7 @@ export default function Login({ providers }: Props) {
                   redirect: false,
                 }).then((res) => {
                   if (res?.ok) {
-                    router.push('/dashboard/overview');
+                    router.push("/dashboard/overview");
                   } else {
                     setRespData(res?.error);
                   }
@@ -155,12 +144,14 @@ export default function Login({ providers }: Props) {
             </form>
 
             <div className="form-control mt-2 background-glow-secondary">
-              <Link href={"/signup"} className="btn btn-outline btn-secondary">Create New Account</Link>
+              <Link href={"/signup"} className="btn btn-outline btn-secondary">
+                Create New Account
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 

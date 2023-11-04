@@ -17,17 +17,17 @@ import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
 const LineChart = dynamic(() => import("@/components/charts/line/lineChart"), {
   ssr: false,
-  loading: () => <SpinnerLoader />
+  loading: () => <SpinnerLoader />,
 });
 
 type Props = {
   fund: Fund;
   market_caps: MarketCap[];
-}
+};
 
 export default function FundDetail(props: Props) {
   const pathname = usePathname();
-  const [interval, setInterval] = useState('1m');
+  const [interval, setInterval] = useState("1m");
 
   const { data, isLoading, error } = useSWR(
     `/api/mutual-funds/fund/${props.fund.slug}/nav/chart/?interval=${interval}`,
@@ -35,13 +35,14 @@ export default function FundDetail(props: Props) {
     {
       revalidateIfStale: true,
       revalidateOnFocus: false,
-      revalidateOnReconnect: false
-    }
+      revalidateOnReconnect: false,
+    },
   );
 
-  const market_cap_diff_perc = props.market_caps?.[0]?.total && props.market_caps?.[1]?.total ? (
-    ((props.market_caps?.[0]?.total - props.market_caps?.[1]?.total) / props.market_caps?.[1]?.total) * 100
-  ) : null;
+  const market_cap_diff_perc =
+    props.market_caps?.[0]?.total && props.market_caps?.[1]?.total
+      ? ((props.market_caps?.[0]?.total - props.market_caps?.[1]?.total) / props.market_caps?.[1]?.total) * 100
+      : null;
 
   return (
     <>
@@ -63,7 +64,7 @@ export default function FundDetail(props: Props) {
           title="Market Cap"
           value={props.market_caps?.[0].total}
           value_decimals={0}
-          subtitle={moment(props.market_caps?.[0].month).format('MMMM YYYY')}
+          subtitle={moment(props.market_caps?.[0].month).format("MMMM YYYY")}
         />
       </div>
 
@@ -71,7 +72,7 @@ export default function FundDetail(props: Props) {
         <ChartCard
           title="Net Asset Value (NAV)"
           color="primary-gradient"
-          subtitle={`last updated ${moment(props.fund.last_updated_on).startOf('day').fromNow()}`}
+          subtitle={`last updated ${moment(props.fund.last_updated_on).startOf("day").fromNow()}`}
           Chart={LineChart}
           data={[{ id: props.fund.name, color: props.fund.amc?.color, data: data }]}
           isDataLoaded={!isLoading}
@@ -82,34 +83,31 @@ export default function FundDetail(props: Props) {
         />
       </div>
     </>
-  )
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  context.res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate=59");
 
   const session: Session | null = await getServerSession(context.req, context.res, authOptions);
 
-  const slug = typeof context.query.slug === 'string' ? context.query.slug : "";
+  const slug = typeof context.query.slug === "string" ? context.query.slug : "";
 
   if (!slug) {
     return {
       notFound: true,
-    }
+    };
   }
 
   const [fund, market_caps] = await Promise.all([
     getFund(session?.access!, slug),
     getAllMarketCaps(session?.access!, slug),
-  ])
+  ]);
 
   return {
     props: {
       fund: fund,
       market_caps: market_caps.results,
     },
-  }
+  };
 }

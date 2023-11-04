@@ -11,7 +11,7 @@ type Props = {
   funds: APIResponse<Fund>;
   search: string;
   current_page: number;
-}
+};
 
 export default function FundLookup(props: Props) {
   return (
@@ -28,28 +28,23 @@ export default function FundLookup(props: Props) {
           <FundsTable funds={props.funds} />
         ) : (
           <div className="text-center text-muted flex h-[20vh]">
-            <span className="m-auto">
-              No results found.
-            </span>
+            <span className="m-auto">No results found.</span>
           </div>
         )}
-      </div >
+      </div>
     </>
-  )
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
+  context.res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate=59");
 
   const session: Session | null = await getServerSession(context.req, context.res, authOptions);
 
-  const page = Number(context.query.page) ?? 1
-  const search = typeof context.query.search === 'string' ? context.query.search : "";
+  const page = Number(context.query.page) ?? 1;
+  const search = typeof context.query.search === "string" ? context.query.search : "";
 
-  const funds = await getAllFunds(session?.access!, search, page, 1000)
+  const funds = await getAllFunds(session?.access!, search, page, 1000);
 
   return {
     props: {
@@ -57,5 +52,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       search: search,
       current_page: page,
     },
-  }
+  };
 }
