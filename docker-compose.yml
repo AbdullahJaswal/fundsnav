@@ -1,0 +1,74 @@
+version: "3.9"
+
+services:
+  fn-frontend:
+    build: ./frontend/
+    container_name: fn-frontend
+    entrypoint: /frontend/entrypoint.dev.sh
+    volumes:
+      - ./frontend:/frontend
+      - node_modules:/frontend/node_modules
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "3000:3000"
+    networks:
+      - staging
+    depends_on:
+      - fn-backend
+  fn-backend:
+    build: ./backend/
+    container_name: fn-backend
+    entrypoint: /backend/entrypoint.dev.sh
+    volumes:
+      - ./backend:/backend
+      - static:/backend/static
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env.dev
+    networks:
+      - staging
+    depends_on:
+      - fn-redis
+      - fn-db
+  fn-db:
+    image: postgres:alpine
+    container_name: fn-db
+    command: postgres -c 'max_connections=500' -c 'shared_buffers=500MB'
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=fundsnav
+      - POSTGRES_PASSWORD=fundsnav
+      - POSTGRES_DB=fundsnav
+      - PGDATA=/tmp
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - staging
+  fn-redis:
+    image: redis:latest
+    container_name: fn-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - staging
+
+volumes:
+  static:
+  node_modules:
+  db_data:
+  redis-data:
+
+
+networks:
+  staging:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 14.28.0.0/16
+          gateway: 14.28.0.1
