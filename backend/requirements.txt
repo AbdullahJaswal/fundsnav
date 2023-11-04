@@ -18,3 +18,4 @@ phonenumbers~=8.13.24
 psycopg2~=2.9.9
 redis~=5.0.1
 rest-framework-roles~=1.0.3
+gunicorn==21.2.0
