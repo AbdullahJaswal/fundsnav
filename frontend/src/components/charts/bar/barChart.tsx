@@ -36,7 +36,7 @@ export default function BarChart({ data }: Props) {
         // legendOffset: 32,
         tickSize: 0,
         tickPadding: 0,
-        legendOffset: 5,
+        legendOffset: 15,
         format: (tick: any) => {
           return "";
         },
