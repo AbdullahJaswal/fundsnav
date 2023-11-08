@@ -4,18 +4,8 @@ import { usePathname } from "next/navigation";
 
 function findItemsByPath(path: string, items: SidebarItemType[]): SidebarItemType[] {
   for (const item of items) {
-    if (item.href === path) {
+    if (path.includes(item.href as string)) {
       return [{ name: item.name, href: item.href }];
-    }
-
-    if (item.subitems) {
-      const subItems = findItemsByPath(path, item.subitems);
-
-      if (subItems.length > 0) {
-        const currentItem = item.href ? [{ name: item.name, href: item.href }] : [];
-
-        return [...currentItem, ...subItems];
-      }
     }
   }
 

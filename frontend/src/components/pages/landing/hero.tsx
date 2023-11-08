@@ -41,7 +41,7 @@ export default function Hero(props: Props) {
           </h3>
 
           <Link
-            href={props.session ? "/dashboard/overview" : "/login"}
+            href={props.session ? "/dashboard/mutual-funds" : "/login"}
             className="btn btn-outline btn-secondary font-bold w-52 mx-auto hover:scale-105 background-glow-secondary"
             onClick={() => setButtonPressed(true)}
           >

@@ -12,7 +12,8 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode as uid_decoder
-from phonenumber_field.serializerfields import PhoneNumberField
+
+# from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -56,17 +57,17 @@ class CustomPasswordResetConfirmSerializer(PasswordResetConfirmSerializer):
 
 
 class CustomRegisterSerializer(RegisterSerializer):
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    phone_number = PhoneNumberField()
+    # first_name = serializers.CharField()
+    # last_name = serializers.CharField()
+    # phone_number = PhoneNumberField()
 
     def get_cleaned_data(self):
         super().get_cleaned_data()
 
         return {
-            "first_name": self.validated_data.get("first_name", ""),
-            "last_name": self.validated_data.get("last_name", ""),
-            "phone_number": self.validated_data.get("phone_number", ""),
+            # "first_name": self.validated_data.get("first_name", ""),
+            # "last_name": self.validated_data.get("last_name", ""),
+            # "phone_number": self.validated_data.get("phone_number", ""),
             "email": self.validated_data.get("email", ""),
             "password1": self.validated_data.get("password1", ""),
             "password2": self.validated_data.get("password2", ""),

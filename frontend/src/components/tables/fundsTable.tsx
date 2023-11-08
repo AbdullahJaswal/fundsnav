@@ -14,7 +14,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { BsFillCaretUpFill, BsFillCaretDownFill } from "react-icons/bs";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import Moment from "react-moment";
+import dynamic from "next/dynamic";
+const Moment = dynamic(() => import("react-moment"), { ssr: false });
 
 const columnHelper = createColumnHelper<Fund>();
 
@@ -30,11 +31,11 @@ const columns = [
   }),
   columnHelper.accessor("amc.name", {
     header: "AMC",
-    cell: (amc) => (
+    /* cell: (amc) => (
       <Link href={`/dashboard/mutual-funds/amc/${amc.row.original.amc?.slug}`} className={`link link-secondary`}>
         {amc.getValue()}
       </Link>
-    ),
+    ), */
     footer: (info) => info.column.id,
   }),
   columnHelper.accessor("category.name", {
@@ -119,13 +120,13 @@ export default function FundsTable(props: Props) {
         </div>
       </div>
 
-      <div className="border border-base-300 rounded-lg">
+      <div className="border min-w-fit border-base-300 rounded-lg">
         <table className="table table-zebra table-pin-rows">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.id} className="z-auto">
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="truncate font-bold">
+                  <th key={header.id} className="truncate font-bold w-1/6">
                     <div
                       {...{
                         className: header.column.getCanSort()

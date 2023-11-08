@@ -4,7 +4,7 @@ import PortfolioIcon from "@/components/icons/PortfolioIcon";
 import { useState } from "react";
 
 const MenuOptions = {
-  1: {
+  /* 1: {
     graphic: <StocksIcon className="fill-primary w-full" />,
     menu_graphic: <StocksIcon className="fill-primary w-6 mr-1" />,
     title: "Daily Stock Trends",
@@ -14,7 +14,7 @@ const MenuOptions = {
     button_text: "Explore Trends",
     btn_color: "btn-primary",
     bg_glow: "background-glow-primary",
-  },
+  }, */
   2: {
     graphic: <MutualFundsIcon className="fill-secondary w-full" />,
     menu_graphic: <MutualFundsIcon className="fill-secondary w-6 mr-1" />,
@@ -25,7 +25,7 @@ const MenuOptions = {
     btn_color: "btn-secondary",
     bg_glow: "background-glow-secondary",
   },
-  3: {
+  /* 3: {
     graphic: <PortfolioIcon className="fill-accent w-full" />,
     menu_graphic: <PortfolioIcon className="fill-accent w-6 mr-1" />,
     title: "Custom Portfolio Tracker",
@@ -34,11 +34,12 @@ const MenuOptions = {
     button_text: "Start Tracking",
     btn_color: "btn-accent",
     bg_glow: "background-glow-accent",
-  },
+  }, */
 };
 
 export default function Section1() {
-  const [selectedOption, setSelectedOption] = useState<1 | 2 | 3>(1);
+  // const [selectedOption, setSelectedOption] = useState<1 | 2 | 3>(1);
+  const [selectedOption, setSelectedOption] = useState<2>(2);
 
   return (
     <div className="flex flex-col gap-4 justify-center">
@@ -50,7 +51,7 @@ export default function Section1() {
         </p>
       </div>
 
-      <div className="mx-auto">
+      {/* <div className="mx-auto">
         <ul className="menu border border-base-300 menu-horizontal rounded-box">
           <li>
             <a
@@ -86,7 +87,7 @@ export default function Section1() {
             </a>
           </li>
         </ul>
-      </div>
+      </div> */}
 
       <div className="card sm:card-side standard-card gap-6 mx-2 md:mx-10 p-10 md:p-20">
         <figure className={`basis-1/2 mx-auto max-w-fit ${MenuOptions[selectedOption].bg_glow}`}>
@@ -100,11 +101,11 @@ export default function Section1() {
           <p className="text-sm md:text-base text-center sm:text-start">{MenuOptions[selectedOption].descrition}</p>
 
           <div className="card-actions justify-end mt-2 mx-auto sm:mx-0">
-            <button
+            {/* <button
               className={`btn btn-outline w-56 ${MenuOptions[selectedOption].btn_color} ${MenuOptions[selectedOption].bg_glow}`}
             >
               {MenuOptions[selectedOption].button_text}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

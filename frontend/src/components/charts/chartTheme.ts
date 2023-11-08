@@ -1,9 +1,17 @@
 const light_theme_colors = {
+  primary: "#66cc8a",
+  secondary: "#c9b74f",
+  accent: "#ea5234",
+  muted: "rgb(148,163,184)",
   legend_text_fill: "#777777",
   grid_color: "#dddddd",
   ticks_text_color: "#777777",
 };
 const dark_theme_colors = {
+  primary: "#66cc8a",
+  secondary: "#edd85f",
+  accent: "#ea5234",
+  muted: "rgb(100,116,139)",
   legend_text_fill: "#dddddd",
   grid_color: "#1a1a25",
   ticks_text_color: "#dddddd",
@@ -145,4 +153,4 @@ const dark_theme = {
   },
 };
 
-export { light_theme, dark_theme };
+export { light_theme, dark_theme, light_theme_colors, dark_theme_colors };

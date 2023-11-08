@@ -63,11 +63,11 @@ export default function ChartCard({
             )}
 
             {range && setRange && (
-              <div className="join w-full px-12 grid grid-cols-7">
-                {["1w", "1m", "3m", "6m", "1y", "3y", "5y"].map((label) => (
+              <div className="join w-full px-12 grid grid-cols-8 gap-1">
+                {["1w", "1m", "3m", "6m", "1y", "3y", "5y", "all"].map((label) => (
                   <input
                     key={label}
-                    className={`join-item btn btn-sm btn-outline btn-ghost opacity-50 checked:!btn-active checked:!opacity-100`}
+                    className={`join-item btn btn-sm !rounded-lg btn-ghost opacity-75 checked:btn-primary checked:opacity-100`}
                     type="radio"
                     name={title}
                     aria-label={label}

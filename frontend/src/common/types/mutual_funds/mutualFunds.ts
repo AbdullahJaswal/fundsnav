@@ -65,3 +65,30 @@ export type ChartValue = {
   x: string;
   y: number;
 };
+
+export type FundsDistribution = {
+  category_distribution: {
+    Conventional: number;
+    Islamic: number;
+  };
+  fund_type_distribution: {
+    "Open End Schemes": number;
+    "Closed End Schemes": number;
+    "Exchange Traded Fund (ETF)": number;
+    "Dedicated Equity Funds": number;
+    "Voluntary Pension Funds": number;
+  };
+  amc_distribution: {
+    [key: string]: {
+      count: number;
+      color: string;
+    };
+  };
+};
+
+export type FundsGrowth = {
+  [key: string]: {
+    growth: number;
+    color: string;
+  };
+};

@@ -31,7 +31,7 @@ class FundsDistributionView(APIView):
             return (fund_type.name, funds.filter(fund_type=fund_type).count())
 
         def get_amc_distribution(amc):
-            return (amc.name, funds.filter(amc=amc).count())
+            return (amc.name, funds.filter(amc=amc).count(), amc.color)
 
         try:
             category_types = ["Conventional", "Islamic"]
@@ -58,11 +58,12 @@ class FundsDistributionView(APIView):
                 for fund_type_name, count in executor.map(
                     get_fund_type_distribution, fund_types
                 ):
-                    fund_type_distribution[fund_type_name] = count
+                    if count > 0:
+                        fund_type_distribution[fund_type_name] = count
 
                 # For AMC distribution
-                for amc_name, count in executor.map(get_amc_distribution, amcs):
-                    amc_distribution[amc_name] = count
+                for amc_name, count, color in executor.map(get_amc_distribution, amcs):
+                    amc_distribution[amc_name] = {"count": count, "color": color or ""}
 
             data = {
                 "category_distribution": category_distribution,
@@ -106,35 +107,53 @@ class FundsGrowthView(APIView):
             )
 
             # Annotate each fund with its initial and final NAV, then compute the growth
-            funds_with_growth = Fund.objects.annotate(
-                initial_nav=Subquery(initial_nav, output_field=DecimalField()),
-                final_nav=Subquery(final_nav, output_field=DecimalField()),
-            ).annotate(
-                growth=ExpressionWrapper(
-                    ((F("final_nav") - F("initial_nav")) / F("initial_nav") * 100),
-                    output_field=DecimalField(),
+            funds_with_growth = (
+                Fund.objects.annotate(
+                    initial_nav=Subquery(initial_nav, output_field=DecimalField()),
+                    final_nav=Subquery(final_nav, output_field=DecimalField()),
                 )
+                .annotate(
+                    growth=ExpressionWrapper(
+                        ((F("final_nav") - F("initial_nav")) / F("initial_nav") * 100),
+                        output_field=DecimalField(),
+                    )
+                )
+                .select_related("amc")
             )
 
             def process_fund(fund):
                 if fund.growth is not None:
-                    return fund.name, fund.growth
+                    return fund.name, fund.growth, fund.amc.color or ""
 
-                return None, None
+                return None, None, None
 
             with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
                 results = list(executor.map(process_fund, funds_with_growth))
 
             sorted_results = sorted(
                 [
-                    (name, round(growth, 4))
-                    for name, growth in results
+                    (name, round(growth, 1), color)
+                    for name, growth, color in results
                     if name is not None and growth is not None
                 ],
                 key=lambda item: item[1],
                 reverse=True,
             )
-            sorted_data = dict(sorted_results)
+            sorted_data = {
+                fund[0]: {
+                    "growth": fund[1],
+                    "color": fund[2],
+                }
+                for fund in sorted_results
+            }
+
+            sorted_data = dict(
+                sorted(
+                    sorted_data.items(),
+                    key=lambda item: item[1]["growth"],
+                    reverse=True,
+                )
+            )
 
             return Response(data=sorted_data, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
@@ -142,7 +161,8 @@ class FundsGrowthView(APIView):
                 data={"error": "A requested object does not exist!"},
                 status=status.HTTP_404_NOT_FOUND,
             )
-        except Exception:
+        except Exception as e:
+            print(e)
             return Response(
                 data={"error": "Something went wrong!"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,

@@ -9,9 +9,10 @@ import NavbarButtons from "@/components/misc/navbarButtons";
 import SignOutButton from "@/components/misc/signoutButton";
 
 const menuItems: { path: string; label: string }[] = [
-  { path: "/dashboard/overview", label: "Dashboard" },
-  { path: "/about", label: "About Us" },
-  { path: "/contact", label: "Contact" },
+  // { path: "/dashboard/overview", label: "Dashboard" },
+  { path: "/dashboard/mutual-funds", label: "Dashboard" },
+  { path: "/about", label: "About" },
+  // { path: "/contact", label: "Contact" },
 ];
 
 export default function StandardNavbar() {
@@ -27,7 +28,7 @@ export default function StandardNavbar() {
             {isAuthenticated && pathname.startsWith("/dashboard") ? (
               <label
                 htmlFor="dashboard-drawer"
-                className="btn btn-ghost hover:bg-primary/10 btn-circle text-primary border-0 drawer-button"
+                className="flex lg:hidden btn btn-ghost hover:bg-primary/10 btn-circle text-primary border-0 drawer-button"
               >
                 <CgMenu className="w-5 h-5" />
               </label>
@@ -77,8 +78,8 @@ export default function StandardNavbar() {
           {isAuthenticated ? (
             <SignOutButton />
           ) : (
-            <Link className="btn btn-outline btn-sm btn-secondary font-bold text-sm hover:scale-105" href="/login">
-              <TbLogin2 className="w-5 h-5" /> Get Started
+            <Link className="btn btn-outline btn-sm btn-secondary font-bold text-xxs hover:scale-105" href="/login">
+              <TbLogin2 className="w-4 h-4" /> Get Started
             </Link>
           )}
         </div>

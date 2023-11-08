@@ -9,12 +9,13 @@ import moment from "moment";
 import { GetServerSidePropsContext } from "next";
 import { Session, getServerSession } from "next-auth";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import dynamic from "next/dynamic";
 import SpinnerLoader from "@/components/loaders/spinnerLoader";
 import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
+
 const LineChart = dynamic(() => import("@/components/charts/line/lineChart"), {
   ssr: false,
   loading: () => <SpinnerLoader />,
@@ -28,6 +29,8 @@ type Props = {
 export default function FundDetail(props: Props) {
   const pathname = usePathname();
   const [interval, setInterval] = useState("1m");
+  const [lastUpdatedOn, setLastUpdatedOn] = useState("");
+  const [marketCapDate, setMarketCapDate] = useState("");
 
   const { data, isLoading, error } = useSWR(
     `/api/mutual-funds/fund/${props.fund.slug}/nav/chart/?interval=${interval}`,
@@ -44,6 +47,18 @@ export default function FundDetail(props: Props) {
       ? ((props.market_caps?.[0]?.total - props.market_caps?.[1]?.total) / props.market_caps?.[1]?.total) * 100
       : null;
 
+  useEffect(() => {
+    if (props.fund.last_updated_on) {
+      setLastUpdatedOn(moment(props.fund.last_updated_on).startOf("day").fromNow());
+    }
+  }, [props.fund.last_updated_on]);
+
+  useEffect(() => {
+    if (props.market_caps?.[0]?.month) {
+      setMarketCapDate(moment(props.market_caps?.[0]?.month).format("MMMM YYYY"));
+    }
+  }, [props.market_caps]);
+
   return (
     <>
       <DashboardHeader
@@ -59,20 +74,15 @@ export default function FundDetail(props: Props) {
         ]}
       />
 
-      <div className="grid gap-4 grid-cols-2 xl:grid-cols-4">
-        <Stat
-          title="Market Cap"
-          value={props.market_caps?.[0].total}
-          value_decimals={0}
-          subtitle={moment(props.market_caps?.[0].month).format("MMMM YYYY")}
-        />
+      <div className="grid gap-4 grid-cols-1">
+        <Stat title="Market Cap" value={props.market_caps?.[0].total} value_decimals={0} subtitle={marketCapDate} />
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         <ChartCard
           title="Net Asset Value (NAV)"
           color="primary-gradient"
-          subtitle={`last updated ${moment(props.fund.last_updated_on).startOf("day").fromNow()}`}
+          subtitle={`last updated ${lastUpdatedOn}`}
           Chart={LineChart}
           data={[{ id: props.fund.name, color: props.fund.amc?.color, data: data }]}
           isDataLoaded={!isLoading}
@@ -90,6 +100,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   context.res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate=59");
 
   const session: Session | null = await getServerSession(context.req, context.res, authOptions);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
   const slug = typeof context.query.slug === "string" ? context.query.slug : "";
 

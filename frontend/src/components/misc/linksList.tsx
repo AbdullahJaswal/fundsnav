@@ -10,14 +10,6 @@ export default function LinksList() {
       {SideBarItems.map((item, index) => {
         return (
           <>
-            {item.href && item.href.startsWith(pathname) && (
-              <li key={`i-${index}`}>
-                <Link href={item.href as string} className="link">
-                  {item.name}
-                </Link>
-              </li>
-            )}
-
             {item.subitems?.map((subitem, subindex) => {
               if (subitem.href?.startsWith(pathname)) {
                 return (

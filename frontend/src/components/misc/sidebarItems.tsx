@@ -23,19 +23,20 @@ import { BiSolidContact } from "react-icons/bi";
 export type SidebarItemType = {
   name: string;
   icon?: any;
-  href?: string;
+  href: string;
   subitems?: SidebarItemType[];
 };
 
 const SideBarItems: SidebarItemType[] = [
-  {
+  /* {
     name: "Overview",
     icon: TbLayoutDashboard,
     href: "/dashboard/overview",
-  },
-  {
+  }, */
+  /* {
     name: "Stock Analysis",
     icon: TbChartAreaLine,
+    href: "/dashboard/stock-analysis",
     subitems: [
       {
         name: "Daily Stock Trends",
@@ -53,11 +54,12 @@ const SideBarItems: SidebarItemType[] = [
         href: "/dashboard/stock-analysis/sectors",
       },
     ],
-  },
+  }, */
   {
     name: "Mutual Funds",
     icon: BsCashStack,
-    subitems: [
+    href: "/dashboard/mutual-funds",
+    /* subitems: [
       {
         name: "Fund Rankings",
         icon: TbChartArrowsVertical,
@@ -73,11 +75,12 @@ const SideBarItems: SidebarItemType[] = [
         icon: TbCategory2,
         href: "/dashboard/mutual-funds/categories",
       },
-    ],
+    ], */
   },
-  {
+  /* {
     name: "Portfolio",
     icon: TbBuildingBank,
+    href: "/dashboard/portfolio",
     subitems: [
       {
         name: "My Portfolio",
@@ -120,7 +123,7 @@ const SideBarItems: SidebarItemType[] = [
     name: "Contact",
     icon: BiSolidContact,
     href: "/contact",
-  },
+  }, */
   {
     name: "About",
     icon: TbInfoCircle,

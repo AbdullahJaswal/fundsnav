@@ -31,22 +31,22 @@ services:
       - staging
     depends_on:
       - fn-redis
-      - fn-db
-  fn-db:
-    image: postgres:alpine
-    container_name: fn-db
-    command: postgres -c 'max_connections=500' -c 'shared_buffers=500MB'
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=fundsnav
-      - POSTGRES_PASSWORD=fundsnav
-      - POSTGRES_DB=fundsnav
-      - PGDATA=/tmp
-    volumes:
-      - db_data:/var/lib/postgresql/data
-    networks:
-      - staging
+      # - fn-db
+      # fn-db:
+      #   image: postgres:alpine
+      #   container_name: fn-db
+      #   command: postgres -c 'max_connections=500' -c 'shared_buffers=500MB'
+      #   ports:
+      #     - "5432:5432"
+      #   environment:
+      #     - POSTGRES_USER=fundsnav
+      #     - POSTGRES_PASSWORD=fundsnav
+      #     - POSTGRES_DB=fundsnav
+      #     - PGDATA=/tmp
+      #   volumes:
+      #     - db_data:/var/lib/postgresql/data
+      #   networks:
+      #     - staging
   fn-redis:
     image: redis:latest
     container_name: fn-redis

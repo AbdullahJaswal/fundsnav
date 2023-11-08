@@ -1,5 +1,6 @@
 import { ResponsiveLine } from "@nivo/line";
 import { dark_theme, light_theme } from "@/components/charts/chartTheme";
+// import { light_theme_colors, dark_theme_colors } from "@/components/charts/chartTheme";
 import getFormatProperties from "@/components/charts/line/lineChartFormatter";
 import { useCurrentThemeStore } from "@/lib/store";
 import { PiChartLineBold } from "react-icons/pi";
@@ -14,6 +15,7 @@ type Props = {
 export default function LineChart({ data, range = "1m", maxDate = "auto" }: Props) {
   const { currentTheme } = useCurrentThemeStore();
   const chartTheme = currentTheme === "light" ? light_theme : dark_theme;
+  // const chartColor = currentTheme === "light" ? light_theme_colors.primary : dark_theme_colors.primary;
 
   const format = getFormatProperties(range, data[0].x);
 
@@ -23,10 +25,10 @@ export default function LineChart({ data, range = "1m", maxDate = "auto" }: Prop
         <ResponsiveLine
           data={data}
           theme={chartTheme}
-          // colors={d => d.color}
-          colors={{ scheme: "yellow_green" }}
+          colors={(d) => d.color}
+          // colors={chartColor}
           curve="monotoneX"
-          margin={{ top: 30, right: 10, bottom: 40, left: 50 }}
+          margin={{ top: 30, right: 20, bottom: 40, left: 50 }}
           xScale={{
             format: "%Y-%m-%d",
             precision: "day",

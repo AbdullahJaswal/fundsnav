@@ -7,7 +7,7 @@ type Props = {
 
 export default function Stat(props: Props) {
   return (
-    <div className="design-temp-1 stats shadow transition-transform duration-300 hover:scale-105">
+    <div className="design-temp-1 stats shadow transition-transform duration-300">
       <div className="stat">
         <div className="stat-title text-gradient-primary font-bold">{props.title}</div>
         <div className="stat-value text-inherit font-bold text-lg sm:text-xl">

@@ -11,15 +11,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nivo/boxplot": "^0.83.0",
+    "@nivo/bar": "^0.83.0",
     "@nivo/core": "^0.83.0",
     "@nivo/line": "^0.83.0",
+    "@nivo/pie": "^0.83.0",
     "@tanstack/match-sorter-utils": "^8.8.4",
     "@tanstack/react-table": "^8.10.7",
     "@types/node": "^20.8.10",
     "@types/react": "^18.2.34",
     "@types/react-dom": "^18.2.14",
     "autoprefixer": "^10.4.16",
+    "classnames": "^2.3.2",
     "daisyui": "^3.9.4",
     "env-cmd": "^10.1.0",
     "eslint": "^8.52.0",

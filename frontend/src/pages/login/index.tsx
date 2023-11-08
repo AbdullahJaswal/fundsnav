@@ -83,7 +83,7 @@ export default function Login({ providers }: Props) {
                   redirect: false,
                 }).then((res) => {
                   if (res?.ok) {
-                    router.push("/dashboard/overview");
+                    router.push("/dashboard/mutual-funds");
                   } else {
                     setRespData(res?.error);
                   }
@@ -122,11 +122,11 @@ export default function Login({ providers }: Props) {
                   autoComplete="current-password"
                   required
                 />
-                <label className="label">
+                {/* <label className="label">
                   <Link href={"/forgot-password"} className="label-text-alt link link-hover text-secondary">
                     Forgot password?
                   </Link>
-                </label>
+                </label> */}
 
                 {respData ? (
                   <label className="label">
