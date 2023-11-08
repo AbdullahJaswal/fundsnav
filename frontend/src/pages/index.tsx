@@ -41,6 +41,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const session: Session | null = await getServerSession(context.req, context.res, authOptions);
 
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard/mutual-funds",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       session: session,
