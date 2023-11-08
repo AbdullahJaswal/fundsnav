@@ -19,6 +19,7 @@ const PieChart = dynamic(() => import("@/components/charts/pie/pieChart"), {
 import { light_theme_colors, dark_theme_colors } from "@/components/charts/chartTheme";
 import ChartCard from "@/components/charts/chartCard";
 import BarChart from "@/components/charts/bar/barChart";
+import Head from "next/head";
 
 type Props = {
   funds: APIResponse<Fund>;
@@ -91,6 +92,20 @@ export default function FundLookup(props: Props) {
 
   return (
     <>
+      <Head>
+        <title>Mutual Funds - FundsNav</title>
+        <meta
+          name="description"
+          content="FundsNav is a platform that helps you track your mutual fund investments and provides you with insights to help you make better investment decisions."
+        />
+        <meta
+          name="keywords"
+          content="mutual funds, mutual fund, mutual fund investments, mutual fund investment, mutual fund returns, mutual fund investment returns, mutual fund investment returns calculator, mutual fund investment returns calculator india, mutual fund investment returns calculator excel, mutual fund investment returns calculator excel india, mutual fund investment returns calculator excel sheet, mutual fund investment returns calculator excel sheet india, mutual fund investment returns calculator excel sheet download, mutual fund investment returns calculator excel sheet free download, mutual fund investment returns calculator excel sheet with sip, mutual fund investment returns calculator excel sheet with sip india, mutual fund investment returns calculator excel sheet with sip download, mutual fund investment returns calculator excel sheet with sip free download"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <DashboardHeader
         title="Mutual Funds"
         subtitle="View mutual funds of Pakistan and analyse their performance."

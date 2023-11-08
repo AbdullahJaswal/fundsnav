@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import useSWRMutation from "swr/mutation";
 import classNames from "classnames";
 import Link from "next/link";
+import Head from "next/head";
 
 const createUserRegistration = (url: string, { arg }: any) =>
   fetch(url, {
@@ -69,6 +70,20 @@ export default function Signup() {
 
   return (
     <>
+      <Head>
+        <title>Signup - FundsNav</title>
+        <meta
+          name="description"
+          content="FundsNav is a platform that helps you track your mutual fund investments and provides you with insights to help you make better investment decisions."
+        />
+        <meta
+          name="keywords"
+          content="mutual funds, mutual fund, mutual fund investments, mutual fund investment, mutual fund returns, mutual fund investment returns, mutual fund investment returns calculator, mutual fund investment returns calculator india, mutual fund investment returns calculator excel, mutual fund investment returns calculator excel india, mutual fund investment returns calculator excel sheet, mutual fund investment returns calculator excel sheet india, mutual fund investment returns calculator excel sheet download, mutual fund investment returns calculator excel sheet free download, mutual fund investment returns calculator excel sheet with sip, mutual fund investment returns calculator excel sheet with sip india, mutual fund investment returns calculator excel sheet with sip download, mutual fund investment returns calculator excel sheet with sip free download"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <div className="hero min-h-[80vh]">
         <div className="hero-content flex-col lg:flex-row justify-evenly gap-10 lg:gap-40 w-full">
           <figure className="mx-auto max-w-fit background-glow-primary">

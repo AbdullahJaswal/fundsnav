@@ -15,6 +15,7 @@ import dynamic from "next/dynamic";
 import SpinnerLoader from "@/components/loaders/spinnerLoader";
 import useSWR from "swr";
 import fetcher from "@/lib/fetcher";
+import Head from "next/head";
 
 const LineChart = dynamic(() => import("@/components/charts/line/lineChart"), {
   ssr: false,
@@ -61,6 +62,20 @@ export default function FundDetail(props: Props) {
 
   return (
     <>
+      <Head>
+        <title>{props.fund.name} - FundsNav</title>
+        <meta
+          name="description"
+          content="FundsNav is a platform that helps you track your mutual fund investments and provides you with insights to help you make better investment decisions."
+        />
+        <meta
+          name="keywords"
+          content="mutual funds, mutual fund, mutual fund investments, mutual fund investment, mutual fund returns, mutual fund investment returns, mutual fund investment returns calculator, mutual fund investment returns calculator india, mutual fund investment returns calculator excel, mutual fund investment returns calculator excel india, mutual fund investment returns calculator excel sheet, mutual fund investment returns calculator excel sheet india, mutual fund investment returns calculator excel sheet download, mutual fund investment returns calculator excel sheet free download, mutual fund investment returns calculator excel sheet with sip, mutual fund investment returns calculator excel sheet with sip india, mutual fund investment returns calculator excel sheet with sip download, mutual fund investment returns calculator excel sheet with sip free download"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <DashboardHeader
         title={props.fund.name}
         subtitle="View and analyze the top performing funds."
