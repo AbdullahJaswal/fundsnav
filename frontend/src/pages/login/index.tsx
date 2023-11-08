@@ -21,12 +21,12 @@ const PROVIDER_ASSETS: any = {
     textColor: "text-[#DB4437]",
     borderColor: "border-[#DB4437]",
   },
-  Facebook: {
+  /* Facebook: {
     icon: FaFacebook,
     color: "#4267B2",
     textColor: "text-[#4267B2]",
     borderColor: "border-[#4267B2]",
-  },
+  }, */
 };
 
 export default function Login({ providers }: Props) {
@@ -181,7 +181,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // Note: Make sure not to redirect to the same page
   // To avoid an infinite loop!
   if (session) {
-    return { redirect: { destination: "/" } };
+    return { redirect: { destination: "/dashboard/mutual-funds" } };
   }
 
   const providers = await getProviders();

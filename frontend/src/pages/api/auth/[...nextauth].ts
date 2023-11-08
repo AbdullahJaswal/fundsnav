@@ -51,14 +51,14 @@ export const authOptions: any = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       idToken: true,
     }),
-    FacebookProvider({
+    /* FacebookProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID as string,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
       idToken: false,
       authorization: "https://www.facebook.com/v17.0/dialog/oauth?scope=email",
       issuer: "https://www.facebook.com",
       jwks_endpoint: "https://www.facebook.com/.well-known/oauth/openid/jwks/",
-    }),
+    }), */
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
