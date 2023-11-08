@@ -487,3 +487,5 @@ static/
 staticfiles/
 mediafiles/
 creds.md
+sitemap.xml
+sitemap-0.xml
