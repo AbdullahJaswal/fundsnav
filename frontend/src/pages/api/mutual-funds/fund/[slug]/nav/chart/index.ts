@@ -14,13 +14,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (req.method) {
     case "GET":
       try {
-        const { interval } = req.query;
+        const { interval, high_precision } = req.query;
 
         if (!interval) {
           return res.status(401).end();
         }
 
-        const url = `${process.env.NEXT_PRIVATE_API_URL}/mutual-funds/fund/${slug}/nav/chart/?interval=${interval}`;
+        const url = `${process.env.NEXT_PRIVATE_API_URL}/mutual-funds/fund/${slug}/nav/chart/?interval=${interval}&high_precision=${high_precision}`;
 
         const response = await fetch(url, {
           headers: {

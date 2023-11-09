@@ -52,7 +52,8 @@ class FundsDistributionView(APIView):
                 for category_type, count in executor.map(
                     get_category_distribution, category_types
                 ):
-                    category_distribution[category_type] = count
+                    if count > 0:
+                        category_distribution[category_type] = count
 
                 # For fund type distribution
                 for fund_type_name, count in executor.map(
@@ -63,7 +64,11 @@ class FundsDistributionView(APIView):
 
                 # For AMC distribution
                 for amc_name, count, color in executor.map(get_amc_distribution, amcs):
-                    amc_distribution[amc_name] = {"count": count, "color": color or ""}
+                    if count > 0:
+                        amc_distribution[amc_name] = {
+                            "count": count,
+                            "color": color or "",
+                        }
 
             data = {
                 "category_distribution": category_distribution,

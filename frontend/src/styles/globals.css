@@ -18,7 +18,7 @@
 
 /* Text Muted */
 [data-theme="light"] .text-muted {
-  @apply text-slate-400;
+  @apply text-slate-500;
 }
 
 [data-theme="dark"] .text-muted {

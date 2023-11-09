@@ -21,6 +21,10 @@ const LineChart = dynamic(() => import("@/components/charts/line/lineChart"), {
   ssr: false,
   loading: () => <SpinnerLoader />,
 });
+const CalendarChart = dynamic(() => import("@/components/charts/calendar/calendarChart"), {
+  ssr: false,
+  loading: () => <SpinnerLoader />,
+});
 
 type Props = {
   fund: Fund;
@@ -30,11 +34,12 @@ type Props = {
 export default function FundDetail(props: Props) {
   const pathname = usePathname();
   const [interval, setInterval] = useState("1m");
+  const [highPrecision, setHighPrecision] = useState(false);
   const [lastUpdatedOn, setLastUpdatedOn] = useState("");
   const [marketCapDate, setMarketCapDate] = useState("");
 
   const { data, isLoading, error } = useSWR(
-    `/api/mutual-funds/fund/${props.fund.slug}/nav/chart/?interval=${interval}`,
+    `/api/mutual-funds/fund/${props.fund.slug}/nav/chart/?interval=${interval}&high_precision=${highPrecision}`,
     fetcher,
     {
       revalidateIfStale: true,
@@ -60,10 +65,17 @@ export default function FundDetail(props: Props) {
     }
   }, [props.market_caps]);
 
+  const calendar_data = data?.map((item: any) => {
+    return {
+      day: item.x,
+      value: item.y,
+    };
+  });
+
   return (
     <>
       <Head>
-        <title>{props.fund.name} - FundsNav</title>
+        <title>{props?.fund?.name} - FundsNav</title>
         <meta
           name="description"
           content="FundsNav is a platform that helps you track your mutual fund investments and provides you with insights to help you make better investment decisions."
@@ -93,7 +105,7 @@ export default function FundDetail(props: Props) {
         <Stat title="Market Cap" value={props.market_caps?.[0].total} value_decimals={0} subtitle={marketCapDate} />
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ChartCard
           title="Net Asset Value (NAV)"
           color="primary-gradient"
@@ -104,6 +116,17 @@ export default function FundDetail(props: Props) {
           range={interval}
           setRange={setInterval}
           maxDate={new Date()}
+          error={error}
+          highPrecision={highPrecision}
+          setHighPrecision={setHighPrecision}
+        />
+
+        <ChartCard
+          title="NAV Calendar"
+          subtitle={`last updated ${lastUpdatedOn}`}
+          Chart={CalendarChart}
+          data={calendar_data}
+          isDataLoaded={!isLoading}
           error={error}
         />
       </div>

@@ -1,7 +1,8 @@
 import { useCurrentThemeStore } from "@/lib/store";
 import { ResponsiveBar } from "@nivo/bar";
 import { dark_theme, light_theme } from "../chartTheme";
-import truncateEllipses from "@/common/utils/truncateEllipsis";
+// import truncateEllipses from "@/common/utils/truncateEllipsis";
+import NoDataAvailable from "@/components/misc/noDataAvailable";
 
 type Props = {
   data: any;
@@ -10,6 +11,10 @@ type Props = {
 export default function BarChart({ data }: Props) {
   const { currentTheme } = useCurrentThemeStore();
   const chartTheme = currentTheme === "light" ? light_theme : dark_theme;
+
+  if (data.length === 0) {
+    return <NoDataAvailable />;
+  }
 
   return (
     <ResponsiveBar

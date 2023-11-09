@@ -2,6 +2,7 @@ import { useCurrentThemeStore } from "@/lib/store";
 import { ResponsivePie } from "@nivo/pie";
 import { dark_theme, light_theme, light_theme_colors, dark_theme_colors } from "../chartTheme";
 import truncateEllipses from "@/common/utils/truncateEllipsis";
+import NoDataAvailable from "@/components/misc/noDataAvailable";
 
 type Props = {
   data: any;
@@ -10,6 +11,10 @@ type Props = {
 export default function PieChart({ data }: Props) {
   const { currentTheme } = useCurrentThemeStore();
   const chartTheme = currentTheme === "light" ? light_theme : dark_theme;
+
+  if (data.length === 0) {
+    return <NoDataAvailable />;
+  }
 
   return (
     <ResponsivePie
@@ -46,7 +51,9 @@ export default function PieChart({ data }: Props) {
               <div className="w-2 h-2 mr-2 rounded-full" style={{ backgroundColor: datum.data.color }}></div>
               <div className="text-xs font-semibold">{datum.data.label}</div>
             </div>
-            <div className="text-xs font-semibold">{datum.data.value} Funds</div>
+            <div className="text-xs font-semibold">
+              {datum.data.value} {datum.data.value > 1 ? "Funds" : "Fund"}
+            </div>
           </div>
         );
       }}

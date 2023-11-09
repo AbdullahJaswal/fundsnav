@@ -1,7 +1,9 @@
+import multiprocessing
 from datetime import timedelta
 
 from django.db.models import Prefetch
 from django.utils import timezone
+from rdp import rdp
 from rest_framework import filters, generics, permissions
 
 from .models import NAV, AssetManagementCompany, Category, Fund, FundType, MarketCap
@@ -154,6 +156,11 @@ class FundNAVListView(generics.ListAPIView):
         )
 
 
+def apply_rdp(chunk):
+    epsilon = 0.1  # Replace with your epsilon value
+    return rdp(chunk, epsilon=epsilon, algo="iter")
+
+
 class FundNAVChartView(generics.ListAPIView):
     """
     List all fund navs for chart
@@ -165,6 +172,7 @@ class FundNAVChartView(generics.ListAPIView):
     def get_queryset(self):
         try:
             interval = self.request.query_params.get("interval", "1m")
+            high_precision = self.request.query_params.get("high_precision", "false")
             datetime_now = timezone.now()
 
             if interval == "1w":
@@ -192,8 +200,43 @@ class FundNAVChartView(generics.ListAPIView):
                     validity_date__gte=start_date,
                 ).order_by("validity_date")
 
-            return NAV.objects.filter(
-                fund__slug=self.kwargs["slug"],
-            ).order_by("validity_date")
-        except Exception:
+            if high_precision == "true":
+                return NAV.objects.filter(
+                    fund__slug=self.kwargs["slug"],
+                ).order_by("validity_date")
+
+            # Fetch the NAV data - we only retrieve the id and nav as we're going to process them in Python
+            # It's more efficient to use iterator() for large querysets as it doesn't cache the results
+            navs_queryset = (
+                NAV.objects.filter(fund__slug=self.kwargs["slug"])
+                .order_by("validity_date")
+                .values_list("id", "nav", named=True)
+                .iterator()
+            )
+
+            # Assuming navs_queryset is already fetched from the database and is a list of tuples
+            navs = [(nav.id, float(nav.nav)) for nav in navs_queryset]
+            chunk_size = len(navs) // multiprocessing.cpu_count()
+
+            # Split navs into chunks
+            navs_chunks = [
+                navs[i : i + chunk_size] for i in range(0, len(navs), chunk_size)
+            ]
+
+            with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:
+                # Map the apply_rdp function to each chunk
+                reduced_navs_chunks = pool.map(apply_rdp, navs_chunks)
+
+            # Flatten the list of chunks
+            reduced_navs = [item for sublist in reduced_navs_chunks for item in sublist]
+
+            # Continue with the rest of your code
+            reduced_ids = [nav[0] for nav in reduced_navs]
+            reduced_navs_queryset = NAV.objects.filter(id__in=reduced_ids).order_by(
+                "validity_date"
+            )
+
+            return reduced_navs_queryset
+        except Exception as e:
+            print(e)
             return NAV.objects.none()
