@@ -1,5 +1,5 @@
 # Core
-dj-rest-auth[with_social]~=5.0.1
+dj-rest-auth[with_social]==5.0.1
 Django~=4.2.7
 django-bulk-sync~=3.3.0
 django-cachalot~=2.6.1
